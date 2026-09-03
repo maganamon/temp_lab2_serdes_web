@@ -1,0 +1,78 @@
+* ============================================================
+* SDF timing + SKY130 transistor-level electrical eye
+* ============================================================
+
+.lib "/home/rudybro/.volare/volare/sky130/versions/0fe599b2afb6708d281543108caf8310912f54af/sky130A/libs.tech/ngspice/sky130.lib.spice" tt
+
+* ------------------------------------------------------------
+* Supply
+* ------------------------------------------------------------
+
+VDD vdd 0 1.8
+
+* ------------------------------------------------------------
+* Timing-aware serial data from Xcelium + SDF
+* ------------------------------------------------------------
+
+AIN %v[din] sdf_source
+
+.model sdf_source filesource (
++ file="serial_data_sdf.pwl"
++ amploffset=[0]
++ amplscale=[1]
++ timeoffset=0
++ timescale=1
++ timerelative=false
++ amplstep=false
++ )
+* ------------------------------------------------------------
+* SKY130 TX pre-driver
+*
+* First inverter
+* ------------------------------------------------------------
+
+XP1 n1 din vdd vdd sky130_fd_pr__pfet_01v8 l=0.15 w=2
+XN1 n1 din 0   0   sky130_fd_pr__nfet_01v8 l=0.15 w=1
+
+* ------------------------------------------------------------
+* SKY130 output driver
+*
+* Second inverter also restores the original data polarity.
+* Made larger to behave more like an output driver.
+* ------------------------------------------------------------
+
+XP2 tx n1 vdd vdd sky130_fd_pr__pfet_01v8 l=0.15 w=8
+XN2 tx n1 0   0   sky130_fd_pr__nfet_01v8 l=0.15 w=4
+
+* ------------------------------------------------------------
+* Simplified electrical channel
+* ------------------------------------------------------------
+
+RCHANNEL tx rx 500
+CCHANNEL rx 0 2p
+
+* Receiver/input capacitance
+CLOAD rx 0 100f
+
+* ------------------------------------------------------------
+* Transient simulation
+* Original serializer UI = 10 ns
+* ------------------------------------------------------------
+
+.tran 10p 3.2u
+
+.control
+
+run
+
+* Make an easy two-column file:
+* time   V(rx)
+set wr_singlescale
+wrdata eye_data.txt v(rx)
+
+* First inspect the electrical waveform
+plot v(din) v(tx) v(rx)
+
+.endc
+
+.end

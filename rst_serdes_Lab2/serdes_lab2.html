@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="generator" content="Docutils 0.23: https://docutils.sourceforge.io/" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>serdes_lab2.rst</title>
+<style type="text/css">
+
+/* Minimal style sheet for the HTML output of Docutils.                    */
+/*                                                                         */
+/* :Author: Günter Milde, based on html4css1.css by David Goodger          */
+/* :Id: $Id: minimal.css 10018 2025-03-06 16:19:15Z milde $                                                               */
+/* :Copyright: © 2015, 2021 Günter Milde.                                  */
+/* :License: Released under the terms of the `2-Clause BSD license`_,      */
+/*    in short:                                                            */
+/*                                                                         */
+/*    Copying and distribution of this file, with or without modification, */
+/*    are permitted in any medium without royalty provided the copyright   */
+/*    notice and this notice are preserved.                                */
+/*                                                                         */
+/*    This file is offered as-is, without any warranty.                    */
+/*                                                                         */
+/* .. _2-Clause BSD license: http://www.spdx.org/licenses/BSD-2-Clause     */
+
+/* This CSS3 stylesheet defines rules for Docutils elements without        */
+/* HTML equivalent. It is required to make the document semantics visible. */
+/*                                                                         */
+/* .. _validates: http://jigsaw.w3.org/css-validator/validator$link        */
+
+/* titles */
+p.topic-title,
+p.admonition-title,
+p.system-message-title {
+  font-weight: bold;
+}
+p.sidebar-title,
+p.rubric {
+  font-weight: bold;
+  font-size: larger;
+}
+p.rubric {
+  color: maroon;
+}
+p.subtitle,
+p.section-subtitle,
+p.sidebar-subtitle {
+  font-weight: bold;
+  margin-top: -0.5em;
+}
+h1 + p.subtitle {
+  font-size: 1.6em;
+}
+a.toc-backref {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Warnings, Errors */
+.system-messages h2,
+.system-message-title,
+pre.problematic,
+span.problematic {
+  color: red;
+}
+
+/* Inline Literals */
+.docutils.literal {
+  font-family: monospace;
+  white-space: pre-wrap;
+}
+/* do not wrap at hyphens and similar: */
+.literal > span.pre { white-space: nowrap; }
+
+/* keep line-breaks (\n) visible */
+.pre-wrap { white-space: pre-wrap; }
+
+/* Lists */
+
+/* compact and simple lists: no margin between items */
+.simple  li, .simple  ul, .simple  ol, .simple  > li p,
+.compact li, .compact ul, .compact ol, .compact > li p,
+dl.simple  > dd, dl.compact > dd, dl.docinfo > dd {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+/* Nested Paragraphs */
+p:first-child { margin-top: 0; }
+p:last-child { margin-bottom: 0; }
+details > p:last-child { margin-bottom: 1em; }
+
+/* Table of Contents */
+.contents ul.auto-toc { /* section numbers present */
+  list-style-type: none;
+}
+
+/* Enumerated Lists */
+ol.arabic     { list-style: decimal }
+ol.loweralpha { list-style: lower-alpha }
+ol.upperalpha { list-style: upper-alpha }
+ol.lowerroman { list-style: lower-roman }
+ol.upperroman { list-style: upper-roman }
+
+/* Definition Lists and Derivatives */
+dt .classifier { font-style: italic }
+dt .classifier:before {
+  font-style: normal;
+  margin: 0.5em;
+  content: ":";
+}
+/* Field Lists and similar */
+/* bold field name, content starts on the same line */
+dl.field-list,
+dl.option-list,
+dl.docinfo {
+  display: flow-root;
+}
+dl.field-list > dt,
+dl.option-list > dt,
+dl.docinfo > dt {
+  font-weight: bold;
+  clear: left;
+  float: left;
+  margin: 0;
+  padding: 0;
+  padding-right: 0.25em;
+}
+/* Offset for field content (corresponds to the --field-name-limit option) */
+dl.field-list > dd,
+dl.option-list > dd,
+dl.docinfo > dd {
+  margin-left:  9em; /* ca. 14 chars in the test examples, fit all Docinfo fields */
+}
+/* start nested lists on new line */
+dd > dl:first-child,
+dd > ul:first-child,
+dd > ol:first-child {
+  clear: left;
+}
+/* start field-body on a new line after long field names */
+dl.field-list > dd > *:first-child,
+dl.option-list > dd > *:first-child
+{
+  display: inline-block;
+  width: 100%;
+  margin: 0;
+}
+
+/* Bibliographic Fields (docinfo) */
+dl.docinfo pre.address {
+  font: inherit;
+  margin: 0;
+}
+dl.docinfo > dd.authors > p { margin: 0; }
+
+/* Option Lists */
+dl.option-list > dt { font-weight: normal; }
+span.option { white-space: nowrap; }
+
+/* Footnotes and Citations  */
+
+.footnote, .citation { margin: 1em 0; } /* default paragraph skip (Firefox) */
+/* hanging indent */
+.citation { padding-left: 2em; }
+.footnote { padding-left: 1.7em; }
+.footnote.superscript { padding-left: 1.0em; }
+.citation > .label { margin-left: -2em; }
+.footnote > .label { margin-left: -1.7em; }
+.footnote.superscript > .label { margin-left: -1.0em; }
+
+.footnote > .label + *,
+.citation > .label + * {
+  display: inline-block;
+  margin-top: 0;
+  vertical-align: top;
+}
+.footnote > .backrefs + *,
+.citation > .backrefs + * {
+  margin-top: 0;
+}
+.footnote > .label + p, .footnote > .backrefs + p,
+.citation > .label + p, .citation > .backrefs + p {
+  display: inline;
+  vertical-align: inherit;
+}
+
+.backrefs { user-select: none; }
+.backrefs > a { font-style: italic; }
+
+/* superscript footnotes */
+a[role="doc-noteref"].superscript,
+.footnote.superscript > .label,
+.footnote.superscript > .backrefs {
+  vertical-align: super;
+  font-size: smaller;
+  line-height: 1;
+}
+a[role="doc-noteref"].superscript > .fn-bracket,
+.footnote.superscript > .label > .fn-bracket {
+  /* hide brackets in display but leave for copy/paste */
+  display: inline-block;
+  width: 0;
+  overflow: hidden;
+}
+[role="doc-noteref"].superscript + [role="doc-noteref"].superscript {
+  padding-left: 0.15em; /* separate consecutive footnote references */
+  /* TODO: unfortunately, "+" also selects with text between the references. */
+}
+
+/* Alignment */
+.align-left   {
+  text-align: left;
+  margin-right: auto;
+}
+.align-center {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+.align-right  {
+  text-align: right;
+  margin-left: auto;
+}
+.align-top    { vertical-align: top; }
+.align-middle { vertical-align: middle; }
+.align-bottom { vertical-align: bottom; }
+
+/* reset inner alignment in figures and tables */
+figure.align-left, figure.align-right,
+table.align-left, table.align-center, table.align-right {
+  text-align: inherit;
+}
+
+/* Text Blocks */
+.topic { margin: 1em 2em; }
+.sidebar,
+.admonition,
+.system-message {
+  margin: 1em 2em;
+  border: thin solid;
+  padding: 0.5em 1em;
+}
+div.line-block { display: block; }
+div.line-block div.line-block, pre { margin-left: 2em; }
+
+/* Code line numbers: don't copy with drag-and-drop */
+pre.code .ln { display: none; }
+pre.code code:before {
+  content: attr(data-lineno);
+  font-size: small;
+  color: gray;
+}
+
+/* Tables */
+table {
+  border-collapse: collapse;
+}
+td, th {
+  border: thin solid silver;
+  padding: 0 1ex;
+}
+.borderless td, .borderless th {
+  border: 0;
+  padding: 0;
+  padding-right: 0.5em /* separate table cells */
+}
+
+table > caption, figcaption {
+  text-align: left;
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+}
+table.captionbelow {
+  caption-side: bottom;
+}
+
+/* MathML (see "math.css" for --math-output=HTML) */
+math .boldsymbol { font-weight: bold; }
+math.boxed, math .boxed {padding: 0.25em; border: thin solid; }
+/* style table similar to AMS "align" or "aligned" environment: */
+mtable.cases > mtr > mtd { text-align: left; }
+mtable.ams-align > mtr > mtd { padding-left: 0; padding-right: 0; }
+mtable.ams-align > mtr > mtd:nth-child(2n) { text-align: left; }
+mtable.ams-align > mtr > mtd:nth-child(2n+1) { text-align: right; }
+mtable.ams-align > mtr > mtd:nth-child(2n+3) { padding-left: 2em; }
+.mathscr mi, mi.mathscr {
+  font-family: STIX, XITSMathJax_Script, rsfs10,
+               "Asana Math", Garamond, cursive;
+}
+
+/* Document Header and Footer */
+header { border-bottom: 1px solid black; }
+footer { border-top: 1px solid black; }
+
+/* Images are block-level by default in Docutils */
+/* New HTML5 block elements: set display for older browsers */
+img, svg, header, footer, main, aside, nav, section, figure, video, details {
+  display: block;
+}
+svg { width: auto; height: auto; }  /* enable scaling of SVG images */
+/* inline images */
+
+p img, p svg, p video,
+h1 img, h2 img, h3 img, h4 img, h5 img, h6 img,
+h1 svg, h2 svg, h3 svg, h4 svg, h5 svg, h6 svg {
+  display: inline;
+}
+
+</style>
+<style type="text/css">
+
+/* CSS31_ style sheet for the output of Docutils HTML writers.             */
+/* Rules for easy reading and pre-defined style variants.                  */
+/*                                                                         */
+/* :Author: Günter Milde, based on html4css1.css by David Goodger          */
+/* :Id: $Id: plain.css 10079 2025-04-10 12:01:48Z milde $                                                               */
+/* :Copyright: © 2015 Günter Milde.                                        */
+/* :License: Released under the terms of the `2-Clause BSD license`_,      */
+/*    in short:                                                            */
+/*                                                                         */
+/*    Copying and distribution of this file, with or without modification, */
+/*    are permitted in any medium without royalty provided the copyright   */
+/*    notice and this notice are preserved.                                */
+/*                                                                         */
+/*    This file is offered as-is, without any warranty.                    */
+/*                                                                         */
+/* .. _2-Clause BSD license: http://www.spdx.org/licenses/BSD-2-Clause     */
+/* .. _CSS3: https://www.w3.org/Style/CSS/                                 */
+
+
+/* Document Structure */
+/* ****************** */
+
+/* "page layout" */
+body {
+  margin: 0;
+  background-color: #dbdbdb;
+  --field-indent: 9em; /* default indent of fields in field lists */
+}
+main, footer, header {
+  line-height:1.6;
+  /* avoid long lines --> better reading */
+  /* optimum is 45…75 characters/line <http://webtypography.net/2.1.2> */
+  /* OTOH: lines should not be too short because of missing hyphenation, */
+  max-width: 50rem;
+  padding: 1px 2%; /* 1px on top avoids grey bar above title (mozilla) */
+  margin: auto;
+}
+main {
+  counter-reset: table figure;
+  background-color: white;
+}
+footer, header {
+  font-size: smaller;
+  padding: 0.5em 2%;
+  border: none;
+}
+
+/* Table of Contents */
+ul.auto-toc > li > p {
+  padding-left: 1em;
+  text-indent: -1em;
+}
+nav.contents ul {
+  padding-left: 1em;
+}
+main > nav.contents ul ul ul ul:not(.auto-toc) {
+  list-style-type: '\2B29\ ';
+}
+main > nav.contents ul ul ul ul ul:not(.auto-toc) {
+  list-style-type: '\2B1D\ ';
+}
+
+/* Transitions */
+hr.docutils {
+  width: 80%;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  clear: both;
+}
+
+/* Paragraphs */
+
+/* vertical space (parskip) */
+p, ol, ul, dl, li,
+.footnote, .citation,
+div > math,
+table {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+h1, h2, h3, h4, h5, h6,
+dd, details > p:last-child {
+  margin-bottom: 0.5em;
+}
+
+/* Lists */
+/* ===== */
+
+/* Definition Lists */
+/* Indent lists nested in definition lists */
+dd > ul:only-child, dd > ol:only-child { padding-left: 1em; }
+
+/* Description Lists */
+/* styled like in most dictionaries, encyclopedias etc. */
+dl.description {
+  display: flow-root;
+}
+dl.description > dt {
+  font-weight: bold;
+  clear: left;
+  float: left;
+  margin: 0;
+  padding: 0;
+  padding-right: 0.3em;
+}
+dl.description > dd:after {
+  display: table;
+  content: "";
+  clear: left; /* clearfix for empty descriptions */
+}
+
+/* Field Lists */
+
+dl.field-list > dd,
+dl.docinfo > dd {
+  margin-left: var(--field-indent); /* adapted in media queries or HTML */
+}
+
+/* example for custom field-name width */
+dl.field-list.narrow > dd {
+  --field-indent: 5em;
+}
+/* run-in: start field-body on same line after long field names */
+dl.field-list.run-in > dd p {
+  display: block;
+}
+
+/* Bibliographic Fields */
+
+/* generally, bibliographic fields use dl.docinfo */
+/* but dedication and abstract are placed into divs */
+div.abstract p.topic-title {
+  text-align: center;
+}
+div.dedication {
+  margin: 2em 5em;
+  text-align: center;
+  font-style: italic;
+}
+div.dedication p.topic-title {
+  font-style: normal;
+}
+
+/* disclosures */
+details { padding-left: 1em; }
+summary { margin-left: -1em; }
+
+/* Text Blocks */
+/* =========== */
+
+/* Literal Blocks */
+pre.literal-block, pre.doctest-block,
+pre.math, pre.code {
+  font-family: monospace;
+}
+
+/* Block Quotes and Topics */
+bockquote { margin: 1em 2em; }
+blockquote p.attribution {
+  text-align: right;
+  margin-left: 20%;
+}
+
+/* Tables */
+/* ====== */
+
+/* th { vertical-align: bottom; } */
+
+table tr { text-align: left; }
+
+/* "booktabs" style (no vertical lines) */
+table.booktabs {
+  border: 0;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-collapse: collapse;
+}
+table.booktabs * {
+  border: 0;
+}
+table.booktabs th {
+  border-bottom: thin solid;
+}
+
+/* numbered tables (counter defined in div.document) */
+table.numbered > caption:before {
+  counter-increment: table;
+  content: "Table " counter(table) ": ";
+  font-weight: bold;
+}
+
+/* Explicit Markup Blocks */
+/* ====================== */
+
+/* Footnotes and Citations */
+/* ----------------------- */
+
+/* line on the left */
+.footnote-list {
+  border-left: solid thin;
+  padding-left: 0.25em;
+}
+
+/* Directives */
+/* ---------- */
+
+/* Body Elements */
+/* ~~~~~~~~~~~~~ */
+
+/* Images and Figures */
+
+/* let content flow to the side of aligned images and figures */
+figure.align-left,
+img.align-left,
+svg.align-left,
+video.align-left,
+div.align-left,
+object.align-left {
+  clear: left;
+  float: left;
+  margin-right: 1em;
+}
+figure.align-right,
+img.align-right,
+svg.align-right,
+video.align-right,
+div.align-right,
+object.align-right {
+  clear: right;
+  float: right;
+  margin-left: 1em;
+}
+/* Stop floating sidebars, images and figures */
+h1, h2, h3, h4, footer, header { clear: both; }
+
+/* Numbered figures */
+figure.numbered > figcaption > p:before {
+  counter-increment: figure;
+  content: "Figure " counter(figure) ": ";
+  font-weight: bold;
+}
+
+/* Admonitions and System Messages */
+.caution p.admonition-title,
+.attention p.admonition-title,
+.danger p.admonition-title,
+.error p.admonition-title,
+.warning p.admonition-title,
+div.error {
+  color: red;
+}
+
+/* Sidebar */
+/* Move right. In a layout with fixed margins, */
+/* it can be moved into the margin.            */
+aside.sidebar {
+  width: 30%;
+  max-width: 26em;
+  float: right;
+  clear: right;
+  margin-left: 1em;
+  margin-right: -1%;
+  background-color: #fffffa;
+}
+
+
+/* Code */
+pre.code { padding: 0.7ex }
+pre.code, code { background-color: #eeeeee }
+/* basic highlighting: for a complete scheme, see */
+/* https://docutils.sourceforge.io/sandbox/stylesheets/ */
+pre.code .comment, code .comment { color: #5C6576 }
+pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
+pre.code .literal.string, code .literal.string { color: #0C5404 }
+pre.code .name.builtin, code .name.builtin { color: #352B84 }
+pre.code .deleted, code .deleted { background-color: #DEB0A1}
+pre.code .inserted, code .inserted { background-color: #A3D289}
+
+
+/* Epigraph           */
+/* Highlights         */
+/* Pull-Quote         */
+/* Compound Paragraph */
+/* Container          */
+
+/* Inline Markup */
+/* ============= */
+
+sup, sub { line-height: 0.8; } /* do not add leading for lines with sup/sub */
+
+/* Inline Literals                                          */
+/* possible values: normal, nowrap, pre, pre-wrap, pre-line */
+/*   span.docutils.literal { white-space: pre-wrap; }       */
+
+/* Hyperlink References */
+a { text-decoration: none; }
+
+/* External Targets       */
+/*   span.target.external */
+/* Internal Targets       */
+/*   span.target.internal */
+/* Footnote References    */
+/*   a[role="doc-noteref"] */
+/* Citation References    */
+/*   a.citation-reference */
+
+</style>
+</head>
+<body>
+<main>
+
+
+<section id="real-eye-diagram-skywater-pdk">
+<h2>Real Eye Diagram: Skywater PDK</h2>
+<p>So last lab we saw the comically perfectly square eye diagram.</p>
+<p>This time we're going to use use Cadence tools to go from:</p>
+<p>RTL -&gt; Logic Gates -&gt; Standard Cells -&gt; Place and Routing -&gt; Eye Diagram</p>
+<p>We'll see the true eye diagram and if time permits it to me, we'll try to purposely close it by
+ramping up the bit rate.</p>
+<p>One interesting image I wanted to show from the High Speed Links Texas A&amp;M Course (<a class="reference external" href="https://people.engr.tamu.edu/spalermo/ecen720.html">https://people.engr.tamu.edu/spalermo/ecen720.html</a>):</p>
+<img alt="images/Eye_Measured_vs_sim.png" class="align-center" src="images/Eye_Measured_vs_sim.png" style="width: 60%;" />
+<p>We can see how with good simulation we can get close to the real thing. Also how we can improve the width
+and height of the eye. More on that later though. Let's put a pin in it for now.</p>
+</section>
+<section id="load-skywater-pdk-into-genus">
+<h2>Load Skywater PDK into Genus</h2>
+<p>cd command chain yourself until you're inside Lab1_Serial_vs_Parallel.</p>
+<p>command <span class="docutils literal">ls</span> should show 2 directories Parallel_Tx and Serdes_TxRx</p>
+<p>We'll need to download the SkyWater PDK (No the whole she-bang, just what we need):</p>
+<aside class="admonition note">
+<p class="admonition-title">Note</p>
+<blockquote>
+<p>Commands to run:</p>
+<ul class="simple">
+<li><p>git clone --depth 1 --no-checkout <a class="reference external" href="https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts.git">https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts.git</a> sky130_orfs</p></li>
+<li><p>cd sky130_orfs</p></li>
+<li><p>git config core.sparseCheckout true</p></li>
+<li><p>echo &quot;flow/platforms/sky130hd/lib/&quot; &gt; .git/info/sparse-checkout</p></li>
+<li><p>git read-tree -mu HEAD</p></li>
+<li><p>ls flow/platforms/sky130hd/lib</p></li>
+</ul>
+</blockquote>
+<p>After the last command you should see:</p>
+<blockquote>
+<p><span class="docutils literal">sky130_fd_sc_hd__tt_025C_1v80.lib</span></p>
+</blockquote>
+</aside>
+<p>Now open Genus</p>
+<aside class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Next Set of Commands to run in Genus:</p>
+<ul class="simple">
+<li><p>set_db library ../sky130_orfs/flow/platforms/sky130hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib</p></li>
+<li><p>read_hdl -sv Serializer_tx.sv</p></li>
+<li><p>read_hdl -sv Deserializer_rx.sv</p></li>
+<li><p>read_hdl -sv top_level_serdes.sv</p></li>
+<li><p>elaborate top_level_serdes</p></li>
+</ul>
+</aside>
+<p>Verify with:</p>
+<ul class="simple">
+<li><p>get_db current_design .name</p></li>
+</ul>
+<p>You should see something like: <span class="docutils literal">top_level_serdes</span></p>
+</section>
+<section id="rtl-logic-gates-standard-cells">
+<h2>RTL -&gt; Logic Gates -&gt; Standard Cells</h2>
+<p>Now let's make a 100Mhz Clk.</p>
+<ul class="simple">
+<li><p>create_clock -name SERDES_CLK -period 10 [get_ports CLK]</p></li>
+</ul>
+<p>Now, let's synthesize to Logic Gates</p>
+<p>RTL -&gt; Logic Gates</p>
+<ul class="simple">
+<li><p><span class="docutils literal">syn_generic</span></p></li>
+</ul>
+<p>We can see the logistics with</p>
+<blockquote>
+<ul class="simple">
+<li><p><span class="docutils literal">report_area</span></p></li>
+</ul>
+</blockquote>
+<p>Now, let's map the gates to cells</p>
+<p>Logic Gates -&gt; Standard Cells</p>
+<ul class="simple">
+<li><p><span class="docutils literal">syn_map</span></p></li>
+</ul>
+<p>Logistics Check:</p>
+<blockquote>
+<ul class="simple">
+<li><p><span class="docutils literal">report_gates</span></p></li>
+<li><p><span class="docutils literal">report_area</span></p></li>
+<li><p><span class="docutils literal">report_timing</span></p></li>
+</ul>
+</blockquote>
+<p>We have our Netlist in Genus. Now we have to export the Netlist.</p>
+<blockquote>
+<ul class="simple">
+<li><p><span class="docutils literal">exec mkdir <span class="pre">-p</span> genus_out</span></p></li>
+<li><p><span class="docutils literal">write_hdl &gt; genus_out/top_level_serdes_mapped.v</span></p></li>
+<li><p><span class="docutils literal">write_sdc &gt; genus_out/top_level_serdes.sdc</span></p></li>
+</ul>
+</blockquote>
+</section>
+<section id="the-sdf-file">
+<h2>The SDF File</h2>
+<p>Now we need an SDF File. Which will give us the timing contrainsts of these
+SkyWater130 standard cells, so that we can simulate it.</p>
+<aside class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Conceptually:</p>
+<blockquote>
+<p>SKY130 DFF</p>
+<p>clock-to-Q = 0.18 ns</p>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p>SKY130 MUX</p>
+<p>A-to-X = 0.12 ns</p>
+<p>etc.</p>
+</blockquote>
+<p>Will become info in out SDF file:</p>
+<p>top_level_serdes.sdf</p>
+<p>Now that we have the SDF file with these timing constraints. We can go back
+to Xcellium to simulate it.</p>
+<p>gate function + gate timing = timing-aware simulation</p>
+<p>Next, we will run:</p>
+<blockquote>
+<ul class="simple">
+<li><p><span class="docutils literal">write_sdf &gt; genus_out/top_level_serdes.sdf</span></p></li>
+<li><p><span class="docutils literal">exec ls <span class="pre">-lh</span> genus_out</span></p></li>
+</ul>
+</blockquote>
+<p>you should see something like:</p>
+<pre class="code rst literal-block"><code>READ,WRITE,EXE permissions USERNAME top_level_serdes.sdc<span class="whitespace">
+
+</span>READ,WRITE,EXE permissions USERNAME top_level_serdes.sdf<span class="whitespace">
+
+</span>READ,WRITE,EXE permissions USERNAME top_level_serdes_mapped.v</code></pre>
+</aside>
+<p>You can now exit genus with:</p>
+<blockquote>
+<ul class="simple">
+<li><p><span class="docutils literal">exit</span></p></li>
+</ul>
+</blockquote>
+<p>What we've done so far:</p>
+<blockquote>
+<pre class="code rst literal-block"><code>SystemVerilog RTL<span class="whitespace">
+</span>    ↓<span class="whitespace">
+</span>Genus<span class="whitespace">
+</span>    ↓<span class="whitespace">
+</span>SKY130 gates<span class="whitespace">
+</span>    ↓<span class="whitespace">
+</span>mapped Verilog<span class="whitespace">
+</span>    +<span class="whitespace">
+</span>SDF timing</code></pre>
+</blockquote>
+<dl class="simple">
+<dt>In the terminal we can run:</dt>
+<dd><ul class="simple">
+<li><p><span class="docutils literal">cat genus_out/top_level_serdes_mapped.v</span></p></li>
+</ul>
+</dd>
+</dl>
+<p>To see the verilog file with the SkyWater Standard Cells</p>
+<p>Xcelium doesn't know what to do with these Standard Cells, so we have
+to give it the timing information.</p>
+<blockquote>
+<ul class="simple">
+<li><p><span class="docutils literal">git clone <span class="pre">--depth</span> 1 <span class="pre">https://github.com/google/skywater-pdk-libs-sky130_fd_sc_hd.git</span> sky130_sc_hd</span></p></li>
+<li><dl class="simple">
+<dt><span class="docutils literal">ls sky130_sc_hd</span></dt>
+<dd><ul>
+<li><p>Should reveal 3 directories: cells, models, timing</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p><span class="docutils literal">git clone <span class="pre">https://github.com/maganamon/sky130_lab2_simModelFiles.git</span> sky130_models</span></p></li>
+<li><p><span class="docutils literal">cp tb_top_level_serdes.sv tb_gate_level_serdes.sv</span></p></li>
+<li><p>open the gate test bench file with <span class="docutils literal">nano</span></p></li>
+<li><p>Delete the parameterized stuff next to the module name</p></li>
+</ul>
+<p>add this after module initialization:</p>
+<pre class="code rst literal-block"><code>`ifdef GATE_LEVEL<span class="whitespace">
+</span>initial begin<span class="whitespace">
+</span>    $sdf_annotate(<span class="whitespace">
+</span>        &quot;genus_out/top_level_serdes.sdf&quot;,<span class="whitespace">
+</span>        dut<span class="whitespace">
+</span>    );<span class="whitespace">
+</span>end<span class="whitespace">
+</span>`endif</code></pre>
+<pre class="code rst literal-block"><code>xrun -64bit -sv \<span class="whitespace">
+</span>-timescale 1ns/1ps \<span class="whitespace">
+</span>sky130_models/primitives.v \<span class="whitespace">
+</span>genus_out/top_level_serdes_mapped.v \<span class="whitespace">
+</span>tb_gate_level_serdes.sv \<span class="whitespace">
+</span>-v sky130_models/sky130_fd_sc_hd.v \<span class="whitespace">
+</span>-top tb_top_level_serdes \<span class="whitespace">
+</span>-access +rwc \<span class="whitespace">
+</span>-define GATE_LEVEL \<span class="whitespace">
+</span>-maxdelays \<span class="whitespace">
+</span>-sdf_verbose</code></pre>
+</blockquote>
+</section>
+<section id="ngspice-book-mark">
+<h2>!!!!! NGSpice Book Mark !!!!!!!!!</h2>
+<blockquote>
+<p>We use a Python script to turn the wave.vcd file with the timing delays into a
+.pwl file that ngspice can use.</p>
+<ul class="simple">
+<li><p><span class="docutils literal">python3 vcd_to_pwl.py</span></p></li>
+<li><p><span class="docutils literal">cat serial_data_sdf.pwl</span></p></li>
+</ul>
+<p>Then go to your WSL (Linux) machine and make a new Directory. Put tthe .pwl file in
+the new directory.</p>
+<p>You will also need to put a .cir file in there as well</p>
+<a href="files/sdf_electrical_eye.cir" download>
+    Download the .cir file (CLICK ME)
+</a><dl class="simple">
+<dt>run it with:</dt>
+<dd><ul class="simple">
+<li><p><span class="docutils literal">ngspice sdf_electrical_eye.cir</span></p></li>
+</ul>
+</dd>
+</dl>
+<p>It should have created a eye_data.txt file with the electrical data (including
+Capacitance, Resistance, and Current)</p>
+<p>We switched to WSL to use NGSpice because we don't have Spectre(The Cadence equivalent)</p>
+<p>So now we'll take this .txt file and import it into Cadence.
+Then run an eye diagram measurement on it.</p>
+<p>For those who are following along at CARP:</p>
+<a href="files/eye_data.txt" download>
+    Download the .txt file (CLICK ME)
+</a><ul class="simple">
+<li><p><span class="docutils literal">Import</span> the .txt it will show up in your home directory</p></li>
+</ul>
+<p>Open Viva.
+- <span class="docutils literal">viva &amp;</span>
+- Tools Tab -&gt; Calculator
+Paste this in:</p>
+<pre class="code rst literal-block"><code>getAsciiWave(&quot;/home/nanohub/rudy_calpolyslo/CADENCE/eye_data.txt&quot; 1 2 ?xName &quot;Time&quot; ?xUnits &quot;s&quot; ?yName &quot;V(rx)&quot; ?yUnits &quot;V&quot;)</code></pre>
+<ul class="simple">
+<li><p>Press enter</p></li>
+<li><p>Plot with the Calculator and Waveform Icon. &quot;Evaluate the buffer. If Scalar,....&quot;</p></li>
+</ul>
+<p>Let's see the eye diagram:</p>
+<pre class="code rst literal-block"><code>Start: 0.3u<span class="whitespace">
+
+</span>100 MHz  → UI = 10 ns<span class="whitespace">
+</span>500 MHz  → UI = 2 ns<span class="whitespace">
+</span>1 GHz    → UI = 1 ns<span class="whitespace">
+</span>2 GHz    → UI = 500 ps<span class="whitespace">
+
+</span>Turning on Intensity is cool :)</code></pre>
+</blockquote>
+<img alt="images/final_eyediagram_lab2.png" class="align-center" src="images/final_eyediagram_lab2.png" style="width: 60%;" />
+<p>and that's all. Thank you. :3</p>
+</section>
+</main>
+</body>
+</html>
