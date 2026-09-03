@@ -22,7 +22,7 @@ and height of the eye. More on that later though. Let's put a pin in it for now.
 Load Skywater PDK into Genus
 --------------------------------
 
-cd command chain yourself until you're inside Lab1_Serial_vs_Parallel.
+``cd ..`` command yourself until you're inside Lab1_Serial_vs_Parallel and outside Serdes_TxRx.
 
 command ``ls`` should show 2 directories Parallel_Tx and Serdes_TxRx
 
@@ -48,7 +48,9 @@ We'll need to download the SkyWater PDK (No the whole she-bang, just what we nee
 
     ``sky130_fd_sc_hd__tt_025C_1v80.lib``
 
-Now open Genus
+``cd`` INTO Serdes_TxRx
+
+Now open Genus with: ``genus``
 
 .. note::
 
