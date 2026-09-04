@@ -804,6 +804,7 @@ to give it the timing information.</p>
 </span>    );<span class="whitespace">
 </span>end<span class="whitespace">
 </span>`endif</code></pre>
+<p>Find the dump_var change to &quot;wave_gate.vcd&quot;</p>
 <pre class="code rst literal-block"><code>xrun -64bit -sv \<span class="whitespace">
 </span>-timescale 1ns/1ps \<span class="whitespace">
 </span>sky130_models/primitives.v \<span class="whitespace">
@@ -823,6 +824,7 @@ to give it the timing information.</p>
 <p>We use a Python script to turn the wave.vcd file with the timing delays into a
 .pwl file that ngspice can use.</p>
 <ul class="simple">
+<li><p><span class="docutils literal">mv sky130_models/vcd_to_pwl.py .</span></p></li>
 <li><p><span class="docutils literal">python3 vcd_to_pwl.py</span></p></li>
 <li><p><span class="docutils literal">cat serial_data_sdf.pwl</span></p></li>
 </ul>
