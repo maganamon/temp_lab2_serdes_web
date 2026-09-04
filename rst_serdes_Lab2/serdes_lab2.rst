@@ -187,7 +187,7 @@ to give it the timing information.
     - ``git clone --depth 1 https://github.com/google/skywater-pdk-libs-sky130_fd_sc_hd.git sky130_sc_hd``
     - ``ls sky130_sc_hd``
         - Should reveal 3 directories: cells, models, timing
-    - ``git clone https://github.com/maganamon/sky130_lab2_simModelFiles.git .``
+    - ``git clone https://github.com/maganamon/sky130_models.git``
 
     - ``cp tb_top_level_serdes.sv tb_gate_level_serdes.sv``
     - open the gate test bench file with ``nano``
