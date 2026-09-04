@@ -226,6 +226,7 @@ to give it the timing information.
     We use a Python script to turn the wave.vcd file with the timing delays into a 
     .pwl file that ngspice can use.
 
+    - ``mv vcd_to_pwl.py ..``
     - ``python3 vcd_to_pwl.py``
     - ``cat serial_data_sdf.pwl``
 
